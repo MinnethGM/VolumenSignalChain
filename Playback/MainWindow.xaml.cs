@@ -97,10 +97,16 @@ namespace Playback
                     //Configuraciones de WaveOut
                     output.DeviceNumber = cbDispositivos.SelectedIndex;
                     output.NumberOfBuffers = 2;
-                    output.DesiredLatency = 100;
+                    output.DesiredLatency = 150;
+
+
+                    volumeProvider = 
+                        new VolumeWaveProvider16(reader);
+                    volumeProvider.Volume =
+                        (float)sldVolumen.Value;
 
                    
-                    output.Init(reader);
+                    output.Init(volumeProvider);
                     output.Play();
 
                     btnstop.IsEnabled = true;
@@ -176,6 +182,15 @@ namespace Playback
         private void sldVolumen_DragCompleted(object sender, RoutedEventArgs e)
         {
             
+        }
+
+        private void sldVolumen_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
+        {
+            if (volumeProvider != null)
+            {
+                volumeProvider.Volume =
+                    (float)sldVolumen.Value;
+            }
         }
     }
 }
