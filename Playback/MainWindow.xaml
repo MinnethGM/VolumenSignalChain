@@ -17,6 +17,8 @@
         <Button x:Name="btnPause" Content="Pause" HorizontalAlignment="Left" Margin="104,106,0,0" VerticalAlignment="Top" Width="75" IsEnabled="False" Click="btnPause_Click"/>
         <ComboBox x:Name="cbDispositivos" HorizontalAlignment="Left" Margin="10,79,0,0" VerticalAlignment="Top" Width="417"/>
         <Slider x:Name="sldVolumen" HorizontalAlignment="Left" Margin="457,38,0,0" VerticalAlignment="Top" Width="22" Orientation="Vertical" Height="162" Maximum="1.5" Value="1" Thumb.DragCompleted="sldVolumen_DragCompleted" ValueChanged="sldVolumen_ValueChanged"/>
+        <Button x:Name="btnCortar" Content="Cortar" HorizontalAlignment="Left" Margin="9,131,0,0" VerticalAlignment="Top" Width="75" Click="btnCortar_Click"/>
+        <Button x:Name="btnCrearFrecuencia" Content="Crear Frecuencua" HorizontalAlignment="Left" Margin="104,131,0,0" VerticalAlignment="Top" Width="124" Click="btnCrearFrecuencia_Click"/>
 
     </Grid>
 </Window>

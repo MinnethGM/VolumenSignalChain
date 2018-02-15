@@ -16,6 +16,7 @@ using Microsoft.Win32;
 using NAudio.Wave;
 using NAudio.Wave.SampleProviders;
 using System.Windows.Threading;
+using System.IO;
 
 namespace Playback
 {
@@ -191,6 +192,42 @@ namespace Playback
                 volumeProvider.Volume =
                     (float)sldVolumen.Value;
             }
+        }
+
+        //Extrer del segundo 10 al 20
+        private void btnCortar_Click(object sender, RoutedEventArgs e)
+        {
+            //Verificar que haya una ruta
+            if (txtruta.Text != null && txtruta.Text != string.Empty)
+            {
+                var reader = 
+                    new Mp3FileReader(txtruta.Text);
+                var writer =
+                    File.Create("cortado.mp3");
+
+                var posicionInicial =
+                    TimeSpan.FromSeconds(10);
+                var posicionFinal =
+                    TimeSpan.FromSeconds(20);
+
+                reader.CurrentTime = posicionInicial;
+                while (reader.CurrentTime < posicionFinal)
+                {
+                    var frame =
+                        reader.ReadNextFrame();
+                    if (frame == null)
+                    {
+                        break;
+                    }
+                    writer.Write(frame.RawData, 0, frame.RawData.Length);
+                }
+                writer.Dispose();
+            }
+        }
+
+        private void btnCrearFrecuencia_Click(object sender, RoutedEventArgs e)
+        {
+
         }
     }
 }
