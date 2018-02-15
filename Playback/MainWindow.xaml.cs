@@ -225,9 +225,29 @@ namespace Playback
             }
         }
 
+        //VA a crear una frecuencia de 440 y la guarda en un wav
         private void btnCrearFrecuencia_Click(object sender, RoutedEventArgs e)
         {
+            var sampleRate = 44100;
+            var channelCount = 1;
+            var signalGenerator = new SignalGenerator(sampleRate, channelCount);
+            signalGenerator.Type =
+                SignalGeneratorType.Sin;
+            signalGenerator.Frequency = 440;signalGenerator.Gain = 0.5;
 
+            var WaveFormat = new WaveFormat(sampleRate, 16, channelCount);
+
+            var writer =
+                new WaveFileWriter("tono.wav", WaveFormat);
+            var muestrassPorSegundo = sampleRate * channelCount;
+
+            var buffer = new float[muestrassPorSegundo];
+            for (int i = 0; i < 5; i++)
+            {
+                var muestras = signalGenerator.Read(buffer, 0, muestrassPorSegundo);
+                writer.WriteSamples(buffer, 0, muestras);
+            }
+            writer.Dispose();
         }
     }
 }
